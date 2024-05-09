@@ -29,6 +29,7 @@ const Product = () => {
   const [image, setImage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     fetchProduct();
@@ -79,7 +80,7 @@ const Product = () => {
   const handleAddProduct = async (values) => {
     setLoading(true);
 
-    const valuesWithImage = { ...values, image };
+    const valuesWithImage = { ...values};
 
     try {
       const { response, err } = await addProduct(valuesWithImage);
@@ -103,7 +104,6 @@ const Product = () => {
 
   const handleUpdateProduct = async (productId, values) => {
     setLoading(true);
-
     const valuesWithImage = { ...values, image };
 
     try {
@@ -155,6 +155,7 @@ const Product = () => {
 
   const handleEditButtonClick = (product) => {
     form.setFieldsValue(product);
+    setEdit(true);
     setModalVisible(true);
   };
 
@@ -243,12 +244,7 @@ const Product = () => {
     },
   ];
 
-  const storeOptions = product
-    .map((prd) => prd.storeOptions)
-    .flat()
-    .filter((store, index, self) => {
-      return index === self.findIndex((s) => s?._id === store?._id);
-    });
+  
 
   const categoryOptions = product
     .map((prd) => prd.categoryOptions)
@@ -383,7 +379,7 @@ const Product = () => {
             label="Product Image"
             rules={[
               {
-                required: true,
+                required: !edit,
                 message: "Please upload the product image",
               },
             ]}
@@ -407,19 +403,6 @@ const Product = () => {
               )}
             </Upload>
           </Form.Item>
-          {/* <Form.Item
-            name="storeId"
-            label="Store"
-            rules={[{ required: true, message: "Please select the store" }]}
-          >
-            <Select>
-              {storeOptions?.map((store) => (
-                <Select.Option key={store?._id} value={store?._id}>
-                  {store?.name || "N/A"}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item> */}
           <Form.Item
             name="categoryId"
             label="Category"

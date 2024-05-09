@@ -26,7 +26,6 @@ const addProduct = async (req, res) => {
     const loggedInEmployee = await Employee.findById(loggedInEmployeeId);
 
     if (!loggedInEmployee) {
-      // Nếu không tìm thấy nhân viên, trả về lỗi
       return res.status(404).json({ message: "Employee not found" });
     }
 
