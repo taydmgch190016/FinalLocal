@@ -33,44 +33,6 @@ const Product = () => {
   useEffect(() => {
     fetchProduct();
   }, []);
-
-  // const fetchProduct = async () => {
-  //   try {
-  //     const { response: productResponse, err: productErr } = await getProduct(
-  //       currentPage,
-  //       pageSize
-  //     );
-  //     const { response: storeResponse, err: storeErr } = await getStore();
-  //     const { response: categoryResponse, err: categoryErr } =
-  //       await getCategory();
-
-  //     if (productErr || storeErr || categoryErr) {
-  //       toast.error("Error fetching product, store or category!");
-  //     } else {
-  //       const updatedProduct = productResponse.map((prod) => {
-  //         const store = storeResponse.find(
-  //           (store) => store._id === prod.storeId
-  //         );
-  //         const storeName = store ? store.name : "N/A";
-  //         const category = categoryResponse.find(
-  //           (category) => category._id === prod.categoryId
-  //         );
-  //         const categoryName = category ? category.name : "N/A";
-  //         return {
-  //           ...prod,
-  //           storeName,
-  //           storeOptions: storeResponse,
-  //           categoryName,
-  //           categoryOptions: categoryResponse,
-  //         };
-  //       });
-
-  //       setProduct(updatedProduct);
-  //     }
-  //   } catch (error) {
-  //     toast.error("Error fetching product!");
-  //   }
-  // };
   const fetchProduct = async () => {
     try {
       const { response: productResponse, err: productErr } = await getProduct(
@@ -445,7 +407,7 @@ const Product = () => {
               )}
             </Upload>
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name="storeId"
             label="Store"
             rules={[{ required: true, message: "Please select the store" }]}
@@ -457,7 +419,7 @@ const Product = () => {
                 </Select.Option>
               ))}
             </Select>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             name="categoryId"
             label="Category"

@@ -188,13 +188,15 @@ const Employee = () => {
 
   return (
     <Flex vertical gap={10} justify="end">
+      
       <Button
         type="primary"
         onClick={() => setModalVisible(true)}
-        style={{ maxWidth: "250px" }}
+        style={{ maxWidth: "150px", float: "right" }}
       >
         Add Employee
       </Button>
+      
       <Table
         dataSource={employee}
         columns={columns}

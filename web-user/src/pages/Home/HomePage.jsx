@@ -39,12 +39,14 @@ const HomeMenu = ({ selectedKey, handleMenuClick, role, handleLogout }) => {
 
   return (
     <Menu
+      
       theme="dark"
       mode="horizontal"
       //defaultSelectedKeys={["1"]}
       selectedKeys={[selectedKey]}
       onClick={({ key }) => handleMenuClick(key)}
       responsive
+      style={{display: 'flex', justifyContent: 'end'}}
     >
 
       {filteredMenuItems.map((item) => (

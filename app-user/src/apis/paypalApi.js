@@ -1,7 +1,3 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 let baseUrl = 'https://api-m.sandbox.paypal.com';
 const base64 = require('base-64');
 

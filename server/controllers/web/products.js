@@ -37,7 +37,7 @@ const addProduct = async (req, res) => {
       price: req.body.price,
       quantity: req.body.quantity,
       imageURL: req.file ? req.file.path : "", // Lấy đường dẫn ảnh từ multer
-      storeId: req.body.storeId, // Gán storeId của nhân viên
+      storeId: loggedInEmployee.storeId, // Gán storeId của nhân viên
       categoryId: req.body.categoryId,
     });
     // Lưu sản phẩm vào cơ sở dữ liệu
@@ -109,7 +109,7 @@ const updateProduct = async (req, res) => {
     product.price = req.body.price;
     product.quantity = req.body.quantity;
     product.categoryId = req.body.categoryId;
-    product.storeId = req.body.storeId;
+    product.storeId = loggedInEmployee.storeId;
     if (req.file) {
       product.imageURL = req.file.path;
     }

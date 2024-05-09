@@ -16,7 +16,6 @@ export const addProduct = async ({
   price,
   quantity,
   image,
-  storeId,
   categoryId,
 }) => {
   const formData = new FormData();
@@ -25,7 +24,6 @@ export const addProduct = async ({
   formData.append("price", price);
   formData.append("quantity", quantity);
   formData.append("image", image);
-  formData.append("storeId", storeId);
   formData.append("categoryId", categoryId);
 
   try {
@@ -43,7 +41,7 @@ export const addProduct = async ({
 
 export const updateProduct = async (
   productId,
-  { name, description, price, quantity, image, storeId, categoryId }
+  { name, description, price, quantity, image, categoryId }
 ) => {
   const formData = new FormData();
   formData.append("name", name);
@@ -51,7 +49,6 @@ export const updateProduct = async (
   formData.append("price", price);
   formData.append("quantity", quantity);
   formData.append("image", image);
-  formData.append("storeId", storeId);
   formData.append("categoryId", categoryId);
 
   try {
