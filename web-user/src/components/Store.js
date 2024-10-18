@@ -13,7 +13,7 @@ const Store = () => {
 
   useEffect(() => {
     fetchStories();
-  }, []);
+  }, [form.getFieldsValue("_id")]);
 
   const fetchStories = async () => {
     try {

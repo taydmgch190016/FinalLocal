@@ -19,7 +19,7 @@ const Employee = () => {
 
   useEffect(() => {
     fetchEmployee();
-  }, []);
+  }, [form.getFieldsValue("_id")]);
 
   const fetchEmployee = async () => {
     try {

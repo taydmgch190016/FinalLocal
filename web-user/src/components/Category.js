@@ -18,7 +18,7 @@ const Category = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [form.getFieldsValue("_id")]);
 
   const fetchCategories = async () => {
     try {

@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const Customer = require("../../models/Customer");
 const jwt = require("jsonwebtoken");
 const nodemailer = require('nodemailer');
+const validator = require('validator');
 // Controller để xử lý yêu cầu đăng ký từ khách hàng
 const clientRegister = async (req, res) => {
   const { username, email, password, address } = req.body;
@@ -16,7 +17,12 @@ const clientRegister = async (req, res) => {
         .status(400)
         .json({ message: "Username or email already exists" });
     }
-
+    if (!validator.isEmail(email)) {
+      return res.status(401).json({ message: "Email is invalid" });
+    }
+    if (!validator.isStrongPassword(password)) {
+      return res.status(402).json({ message: "Password is invalid" });
+    }
     // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
     const hashedPassword = await bcrypt.hash(password, 10);
 
