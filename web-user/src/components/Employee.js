@@ -16,7 +16,7 @@ const Employee = () => {
   const [employee, setEmployee] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [storeOptions, setStoreOptions] = useState([]);
   useEffect(() => {
     fetchEmployee();
   }, [form.getFieldsValue("_id")]);
@@ -39,6 +39,7 @@ const Employee = () => {
         });
 
         setEmployee(updatedEmployee);
+        setStoreOptions(storeResponse);
       }
     } catch (error) {
       toast.error("Error fetching employee or store!");
@@ -179,12 +180,12 @@ const Employee = () => {
     },
   ];
 
-  const storeOptions = employee
-    .map((emp) => emp.storeOptions)
-    .flat()
-    .filter((store, index, self) => {
-      return index === self.findIndex((s) => s?._id === store?._id);
-    });
+  // const storeOptions = employee
+  //   .map((emp) => emp.storeOptions)
+  //   .flat()
+  //   .filter((store, index, self) => {
+  //     return index === self.findIndex((s) => s?._id === store?._id);
+  //   });
 
   return (
     <Flex vertical gap={10} justify="end">

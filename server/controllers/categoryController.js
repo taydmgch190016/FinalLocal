@@ -1,6 +1,6 @@
 const Category = require("../models/Categories");
 
-// Endpoint to get all categories
+
 const getAllCategories = async (req, res) => {
   try {
     const categories = await Category.find();

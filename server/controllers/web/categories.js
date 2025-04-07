@@ -2,7 +2,7 @@ const Category = require("../../models/Categories");
 const jwt = require("jsonwebtoken");
 const Employee = require("../../models/Employee");
 
-// Controller để xử lý các yêu cầu liên quan đến danh mục
+
 exports.getAllCategories = async (req, res) => {
   try {
     const categories = await Category.find();
@@ -13,17 +13,15 @@ exports.getAllCategories = async (req, res) => {
 };
 
 exports.addCategory = async (req, res) => {
-  // Lấy thông tin của nhân viên từ JWT token
+
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   const loggedInEmployeeId = decodedToken.userId;
 
   try {
-    // Tìm kiếm thông tin của nhân viên dựa trên id
     const loggedInEmployee = await Employee.findById(loggedInEmployeeId);
 
     if (!loggedInEmployee) {
-      // Nếu không tìm thấy nhân viên, trả về lỗi
       return res.status(404).json({ message: "Employee not found" });
     }
     const category = new Category({
@@ -37,9 +35,8 @@ exports.addCategory = async (req, res) => {
   }
 };
 
-// delete category
+
 exports.deleteCategory = async (req, res) => {
-  // Lấy thông tin của nhân viên từ JWT token
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   const loggedInEmployeeId = decodedToken.userId;
@@ -47,11 +44,11 @@ exports.deleteCategory = async (req, res) => {
   const categoryId = req.params.id;
 
   try {
-    // Tìm kiếm thông tin của nhân viên dựa trên id
+
     const loggedInEmployee = await Employee.findById(loggedInEmployeeId);
 
     if (!loggedInEmployee) {
-      // Nếu không tìm thấy nhân viên, trả về lỗi
+
       return res.status(404).json({ message: "Employee not found" });
     }
 
@@ -67,9 +64,9 @@ exports.deleteCategory = async (req, res) => {
   }
 };
 
-// update category
+
 exports.updateCategory = async (req, res) => {
-  // Lấy thông tin của nhân viên từ JWT token
+
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   const loggedInEmployeeId = decodedToken.userId;
@@ -77,11 +74,11 @@ exports.updateCategory = async (req, res) => {
   const categoryId = req.params.id;
 
   try {
-    // Tìm kiếm thông tin của nhân viên dựa trên id
+
     const loggedInEmployee = await Employee.findById(loggedInEmployeeId);
 
     if (!loggedInEmployee) {
-      // Nếu không tìm thấy nhân viên, trả về lỗi
+
       return res.status(404).json({ message: "Employee not found" });
     }
 

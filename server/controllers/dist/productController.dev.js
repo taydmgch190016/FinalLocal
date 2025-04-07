@@ -1,8 +1,6 @@
 "use strict";
 
-// server/controllers/productController.js
-var Product = require("../models/Product"); // Controller để lấy tất cả sản phẩm của một cửa hàng theo storeId
-
+var Product = require("../models/Product");
 
 exports.getProductsByStoreId = function _callee(req, res) {
   var storeId, products;
@@ -101,8 +99,7 @@ exports.searchProducts = function _callee3(req, res) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
-          name = req.query.name; // Search for products whose name contains the provided query
-
+          name = req.query.name;
           _context3.next = 4;
           return regeneratorRuntime.awrap(Product.find({
             name: {

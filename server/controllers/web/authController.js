@@ -45,21 +45,21 @@ exports.webLogin = async (req, res) => {
   }
 };
 
-// Đăng ký tài khoản nhân viên mới
+
 exports.registerEmployee = async (req, res) => {
   const { email, password, storeId } = req.body;
 
   try {
-    // Kiểm tra xem email đã được sử dụng chưa
+
     let existingEmployee = await Employee.findOne({ email });
     if (existingEmployee) {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-    // Mã hóa mật khẩu
+   
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Tạo tài khoản nhân viên mới
+    
     const newEmployee = new Employee({
       email,
       password: hashedPassword,
@@ -73,9 +73,9 @@ exports.registerEmployee = async (req, res) => {
   }
 };
 
-// Đăng xuất
+
 exports.logout = async (req, res) => {
-  // Xóa thông tin đăng nhập khỏi local storage
+
   localStorage.removeItem("isLoggedIn");
   localStorage.removeItem("userId");
   localStorage.removeItem("role");

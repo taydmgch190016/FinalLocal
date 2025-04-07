@@ -23,13 +23,14 @@ import { getCategory } from "../api/category.api";
 
 const Product = () => {
   const [form] = Form.useForm();
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(5);
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState([]);
   const [image, setImage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [categoryOptions, setCategoryOptions] = useState([]);
 
   useEffect(() => {
     fetchProduct();
@@ -71,6 +72,7 @@ const Product = () => {
         );
 
         setProduct(filteredProduct);
+        setCategoryOptions(categoryResponse);
       }
     } catch (error) {
       toast.error("Error fetching product!");
@@ -80,7 +82,7 @@ const Product = () => {
   const handleAddProduct = async (values) => {
     setLoading(true);
 
-    const valuesWithImage = { ...values};
+    const valuesWithImage = { ...values, image};
 
     try {
       const { response, err } = await addProduct(valuesWithImage);
@@ -94,6 +96,7 @@ const Product = () => {
         setProduct([...product, response]);
         setModalVisible(false);
         form.resetFields();
+        setImage(null);
       }
     } catch (error) {
       toast.error("Error adding product!");
@@ -117,6 +120,7 @@ const Product = () => {
         setModalVisible(false);
         setEdit(false);
         form.resetFields();
+        setImage(null);
       }
 
       if (err) {
@@ -252,14 +256,7 @@ const Product = () => {
     },
   ];
 
-  
 
-  const categoryOptions = product
-    .map((prd) => prd.categoryOptions)
-    .flat()
-    .filter((category, index, self) => {
-      return index === self.findIndex((c) => c?._id === category?._id);
-    });
 
   return (
     <Flex vertical gap={10} justify="end">
@@ -417,8 +414,8 @@ const Product = () => {
             rules={[{ required: true, message: "Please select the category" }]}
           >
             <Select>
-              {categoryOptions?.map((category) => (
-                <Select.Option key={category?._id} value={category?._id}>
+              {categoryOptions?.map((category,index) => (
+                <Select.Option key={index} value={category?._id}>
                   {category?.name || "N/A"}
                 </Select.Option>
               ))}

@@ -14,45 +14,37 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-// Hàm controller để thêm sản phẩm
 const addProduct = async (req, res) => {
-  // Lấy thông tin của nhân viên từ JWT token
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   const loggedInEmployeeId = decodedToken.userId;
 
   try {
-    // Tìm kiếm thông tin của nhân viên dựa trên id
     const loggedInEmployee = await Employee.findById(loggedInEmployeeId);
 
     if (!loggedInEmployee) {
       return res.status(404).json({ message: "Employee not found" });
     }
 
-    // Tạo sản phẩm mới và gán storeId từ nhân viên đăng nhập
     const newProduct = new Product({
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
       quantity: req.body.quantity,
-      imageURL: req.file ? req.file.path : "", // Lấy đường dẫn ảnh từ multer
-      storeId: loggedInEmployee.storeId, // Gán storeId của nhân viên
+      imageURL: req.file.path,
+      storeId: loggedInEmployee.storeId, 
       categoryId: req.body.categoryId,
     });
-    // Lưu sản phẩm vào cơ sở dữ liệu
     const savedProduct = await newProduct.save();
 
-    // Trả về thông tin của sản phẩm đã được lưu
+    
     res.status(201).json(savedProduct);
   } catch (error) {
-    // Xử lý lỗi nếu có
     res.status(500).json({ message: error.message });
   }
 };
 
-// delete product
 const deleteProduct = async (req, res) => {
-  // Lấy thông tin của nhân viên từ JWT token
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   const loggedInEmployeeId = decodedToken.userId;
@@ -60,11 +52,9 @@ const deleteProduct = async (req, res) => {
   const productId = req.params.id;
 
   try {
-    // Tìm kiếm thông tin của nhân viên dựa trên id
     const loggedInEmployee = await Employee.findById(loggedInEmployeeId);
 
     if (!loggedInEmployee) {
-      // Nếu không tìm thấy nhân viên, trả về lỗi
       return res.status(404).json({ message: "Employee not found" });
     }
 
@@ -80,9 +70,7 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-// update product
 const updateProduct = async (req, res) => {
-  // Lấy thông tin của nhân viên từ JWT token
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   const loggedInEmployeeId = decodedToken.userId;
@@ -90,11 +78,9 @@ const updateProduct = async (req, res) => {
   const productId = req.params.id;
 
   try {
-    // Tìm kiếm thông tin của nhân viên dựa trên id
     const loggedInEmployee = await Employee.findById(loggedInEmployeeId);
 
     if (!loggedInEmployee) {
-      // Nếu không tìm thấy nhân viên, trả về lỗi
       return res.status(404).json({ message: "Employee not found" });
     }
 

@@ -1,8 +1,7 @@
-// server/controllers/productController.js
+
 
 const Product = require("../models/Product");
 
-// Controller để lấy tất cả sản phẩm của một cửa hàng theo storeId
 exports.getProductsByStoreId = async (req, res) => {
   const { storeId } = req.params;
 
@@ -33,7 +32,7 @@ exports.searchProducts = async (req, res) => {
   try {
     const { name } = req.query;
 
-    // Search for products whose name contains the provided query
+
     const products = await Product.find({ name: { $regex: name, $options: 'i' } });
 
     res.json(products);
